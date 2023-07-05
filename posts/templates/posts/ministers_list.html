@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+{% load static %}
+{% block title %}CCOA | Ministers{% endblock %}
+
+{% block bootstrap5_before_content %}
+<div class="page-head" data-bg-image="{% static 'images/page-head-1.jpg' %}">
+    <div class="container">
+        <h2 class="page-title"> Ministers</h2>
+    </div>
+</div>
+{% endblock %}  
+{% block add_content_link %}
+<h4 class="text-right"><a href="{% url 'create_minister' %}" class="btn btn-outline-success btn-rounded"><i class="typcn typcn-plus text-outline-success"></i>Add minister</a></h4>
+{% endblock %}
+
+{% block bootstrap5_content %}
+
+<br>
+<br>
+
+{% if user.is_authenticated %}
+    <table class="table table-hover table-striped border-2">
+        <thead class="table-info">
+            <th>Photo</th>
+            <th>Minister's Name</th>
+            <th>Word from the minister</th>
+        </thead>
+        <tbody>
+            {% for ministers in ministers_list %}
+            <tr>
+                <td class="py-1"><img class="img-rounded" src="{{ministers.minister_photo.url}}" width="50px" alt=""></td>
+                <td>{{ministers.minister_full}}</td>
+                <td>{{ministers.word_of_encouragement|safe|truncatewords:4}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+<!-- {#<div class="row  row-cols-1 row-cols-md-2 g-0">#} -->
+        <div class="row ">
+            {% for ministers in ministers_list %}
+            <div class="col-md-4">
+                <hr>
+                <div class="card">
+                    <img src="{{ministers.minister_photo.url}}">
+                    <div class="card-body" >
+                        <h4 class="card-title">{{ministers.minister_full}}</h4>
+                        <a href="{% url 'ministers_detail' pk=ministers.pk %}" class="btn btn-primary">More details</a>
+                    </div>
+                </div>
+                <br>
+            </div>
+            <br>
+            {% endfor %}
+            <hr>
+        </div>
+    </div>
+<!-- {#</div>#} -->
+{% endif %}
+{% endblock %}}

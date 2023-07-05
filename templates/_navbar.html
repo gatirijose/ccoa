@@ -1,0 +1,45 @@
+{% load static bootstrap5 %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'sass/style.scss' %}">
+    <!-- Loading third party fonts -->
+    <link href="{% static 'fonts/novecento-font/novecento-font.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'fonts/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+{% endblock %}
+{% load static bootstrap5 %}
+<div class="site-content">
+    <header class="site-header">
+        <div class="container">
+            <a href="{% url 'home' %}" class="branding">
+                <img src="{% static 'favicon/church_logo.png' %}" alt="logo" width="75" height="73" class="logo">
+                <h1 class="site-title">Christ covenant Outreach Assembly Church</h1>
+            </a>
+
+            <div class="main-navigation">
+                <button class="menu-toggle"><i class="fa fa-bars"></i> Menu</button>
+                <ul class="menu current-menu-item">
+                    <li class="menu-item"><a href="{% url 'home' %}">Homepage </a></li>
+                    <li class="menu-item"><a href="{% url 'minister_list' %}">Ministers </a></li>
+                    <li class="menu-item"><a href="{% url 'sermon_list' %}">Sermons</a></li>
+                    <li class="menu-item"><a href="{% url 'events_list' %}">Events</a></li>
+                    <li class="menu-item"><a href="{% url 'photo_gallery_list' %}">Gallery</a></li>
+<!--							<li class="menu-item"><a href="#">Families</a></li>-->
+                    <li class="menu-item"><a href="{% url 'send_to:contact' %}">Contact</a></li>
+                </ul>
+            </div>
+            <div class="mobile-navigation"></div>
+        </div>
+    </header>
+</div>
+
+
+
+{% block bootstrap5_extra_script %}
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/min/plugins-min.js' %}"></script>
+    <script src="{% static 'js/min/app-min.js' %}"></script>
+{% endblock %}
+    

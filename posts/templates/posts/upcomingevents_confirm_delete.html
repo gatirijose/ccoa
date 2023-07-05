@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+{% load static %}
+{% block title %}CCOA | {{object.event_name}}{% endblock %}
+    
+
+{% block bootstrap5_before_content %}
+<div class="page-head" data-bg-image="{% static 'images/page-head-1.jpg' %}">
+    <div class="container">
+        <h2 class="page-title">Delete {{object.event_name}}</h2>
+    </div>
+</div>
+{% endblock %}
+{% block bootstrap5_content %}
+<br>
+<br>
+<nav class="navbar navbar-nav nav-dark">
+    <h1>Are you sure you want to delete <i><strong>{{object.event_name}}?</strong></i></h1>
+</nav>
+<br>
+<form  method="POST">
+    {% csrf_token %}
+    <div class="card-body">
+        <h5 class="card-title">{{object.event_name}}</h5>
+        <p class="card-text">{{object.event_info |safe}}</p>
+    </div>
+    <h3 class=" text-lowercase m-4"><strong><span class="text-uppercase">a</span>ction cannot be undone</strong></h3>
+    <button type="submit" class="btn btn-outline-danger btn-lg ">confirm Delete</button>
+</form>
+{% endblock %}

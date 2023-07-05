@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% block title %}CCOA | Sermons{% endblock %}
+{% load bootstrap5 %}
+{% load static %}
+{% block bootstrap5_before_content %}
+<br>
+<div class="page-head" data-bg-image="{% static 'images/page-head-1.jpg' %}">
+    <div class="container">
+        <h2 class="page-title">Church Sermons</h2>
+    </div>
+</div>
+<br>
+{% endblock %}
+{% block add_content_link %}
+    <h4 class="text-right"><a href="{% url 'create_sermon' %}" class="btn btn-outline-success btn-rounded"><i class="typcn typcn-plus text-outline-success"></i>Add sermon</a></h4>
+{% endblock %}
+
+{% block bootstrap5_content %}
+<br>
+{% if user.is_authenticated %}
+    <table class="table table-hover table-striped border-2">
+        <thead class="table-info">
+            <th>video</th>
+            <th>sermon title</th>
+            <th>Preacher</th>
+            <th>Date preached</th>
+            <th>Action</th>
+        </thead>
+        <tbody>
+            {% for sermon in sermon_list %}
+            <tr>
+                <td class="py-1">
+                    <iframe class=" border-1 border-opacity-50" width="100px"  href="{{sermon.sermon_youtube_link}}"
+                    title="{{sermon.sermon_title}}" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen
+                    >
+                    </iframe>
+                </td>
+                <td>{{sermon.sermon_title}}</td>
+                <td>{{sermon.preached_by}}</td>
+                <td>{{sermon.sermon_date}}</td>
+                <td>
+                    <a href="{% url 'sermon_detail' pk=sermon.pk %}" class="btn btn-outline-info btn-sm btn-rounded " type="button" id="">View</a>
+                    <a href="{% url 'delete_sermon' pk=sermon.pk %}" class="btn btn-outline-danger btn-sm btn-rounded" type="button" id="">Delete</a>
+               </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+<div class="row g-0">
+    {% for sermon in sermon_list %}
+        <div class="col-lg-4 col-md-6 col-xs-12">
+            <div class=" card card-body hoverable border-0">
+                
+                       <iframe class=" border-1 border-opacity-50" width="100%" height="225"  href="{{sermon.sermon_youtube_link}}"
+                               title="{{sermon.sermon_title}}" frameborder="0"
+                               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                               allowfullscreen
+                       >
+                       </iframe>
+                <a class=" nabar-nav nav-item active " href="{% url 'sermon_detail' pk=sermon.pk %}" >
+                    <h5 class="font-weight-bold center-block text-uppercase mb-4" style="text-align: center">{{sermon.sermon_title}}</h5></a>
+                    <small class="text-muted" style="display: inline-block; text-align:right;">{{sermon.sermon_date}}</small>
+                    <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                        <a class="btn btn-sm btn-outline-info" href="{% url 'sermon_detail' pk=sermon.pk %}" >
+                            View
+                        </a>
+                        {% if user.is_authenticated %}
+                            <a class="btn btn-sm  btn-outline-primary" href="{% url 'update_sermon' pk=sermon.pk %}">
+                                Edit
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+                <hr>
+            </div>
+            <br>
+        </div>
+    {% endfor %}
+</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+{% load static %}
+
+{% block title %}CCOA | {{object.event_name}}{% endblock %}
+    
+{{form.media}}
+{% block bootstrap5_before_content %}
+<div class="page-head" data-bg-image="{% static 'images/page-head-1.jpg' %}">
+    <div class="container">
+        <h2 class="page-title">{{object.event_name}}</h2>
+    </div>
+</div>
+{% endblock %}
+
+{% block bootstrap5_content %}
+<br>
+<br>
+{% if user.is_authenticated %}
+
+<div class="card border-0">
+    <div class="card-img-top text-center">
+        <img src="{{object.event_banner.url}}" height="300" width="50%" alt="">
+    </div>
+    <div class="card-body">
+        <h2 class="card-title">{{object.event_name}}</h2>
+        <p class="card-text">{{object.event_info|safe}}</p>
+        <p class="card-text"><i class="typcn typcn-calendar" style="height: 1.2em;"></i> {{object.event_date}}</p><br>
+        <a href="{% url 'delete_event' pk=object.pk %}" class="btn btn-lg btn-outline-danger btn-rounded">Delete</a>
+    </div>
+</div>
+{% else %}
+<div class="container">
+    <div class="card border-0">
+        <div class="card-img-top text-center">
+            <img src="{{object.event_banner.url}}" height="300" width="50%" alt="">
+        </div>
+        <div class="card-body">
+            <h2 class="card-title">{{object.event_name}}</h2>
+            <p class="card-text">{{object.event_info| safe}}</p>
+            <p class="card-text"><i class="fa fa-calendar"></i> {{object.event_date}}</p>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

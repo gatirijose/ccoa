@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+
+{% load static %}
+
+{% block title %}CCOA | Gallery{% endblock %}
+    
+{{ form.media }}
+
+
+
+{% block bootstrap5_before_content %}
+<div class="page-head" data-bg-image="{% static 'images/page-head-1.jpg' %}">
+    <div class="container">
+        <h2 class="page-title">Church Photos</h2>
+    </div>
+</div>
+{% endblock  %}
+
+{% block add_content_link %}
+    <h4 class="text-right"><a href="{% url 'photo_create' %}" class="btn btn-outline-success btn-rounded"><i class="typcn typcn-plus text-outline-success"></i>Add to gallery</a></h4>
+{% endblock %}
+
+
+{% block bootstrap5_content %}
+    <br>
+    <br>
+    {% if user.is_authenticated %}
+   <div class="card">
+    <table class="table table-hover table-striped border-2">
+        <thead class="">
+            <th>Photo</th>
+            <th>Information</th>
+            <th>Date taken</th>
+            <th>Options</th>
+        </thead>
+        <tbody class="table-striped">
+            {% for object in object_list %}
+            <tr>
+                <td class="py-1"><img class="img-rounded" src="{{object.photo.url}}" width="50px" alt=""></td>
+                <td>{{object.photo_info}}</td>
+                <td>{{object.date_taken}}</td>
+                <td>
+                    <a href="{% url 'photo_detail' pk=object.pk %}" class="btn btn-outline-info btn-sm btn-rounded " type="button" id="">View</a>
+                    <a href="{% url 'photo_delete' pk=object.pk %}" class="btn btn-outline-danger btn-sm btn-rounded" type="button" id="">Delete</a>
+               </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+   </div>
+
+    {% else %}
+
+    <div class="row">
+    {% for object in object_list %}
+        <div class="col-lg-3 col-md-4 col-sm-12">
+            <div class="card">
+                <img class="card-img img-responsive" height="340.92" src="{{object.photo.url}}">
+                <div class="card-body">
+                    <h5 class="card-title">{{object.photo_info|linebreaks}}</h5>
+                    <p class="card-text text-right"><small class="text-muted">{{ object.date_taken }}</small></p>
+                    <a href="{% url 'photo_detail' pk=object.pk %}" class="button">view</a>
+                    {% if user.is_authenticated %}
+                    <a href="{% url 'photo_delete' pk=object.pk %}" class="btn btn-lg btn-rounded btn-outline-danger">Delete</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endif %}
+    </div>
+{% endblock  %}

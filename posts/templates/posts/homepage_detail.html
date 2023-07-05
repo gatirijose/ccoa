@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}CCOA | Home{% endblock %}
+	
+{% block bootstrap5_content %}
+<div class="container">
+	<div class="row">
+		<div class="col-md-6">
+<!--			section 1-->
+			<h2 class="section-title">Order of services</h2>
+			<div class="table-responsive">
+				<table class='table table-bordered align-middle border-1'>
+					<thead class="">
+					<th>Service</th>
+					<th>Day</th>
+					<th>Start time</th>
+					</thead>
+					<tr>
+						<td>{{object.service_1_name}}</td>
+						<td>{{object.service_1_day}}</td>
+						<td>{{object.service_1_start_time}}</td>
+					</tr>
+					<tr>
+						<td>{{object.service_2_name}}</td>
+						<td>{{object.service_2_day}}</td>
+						<td>{{object.service_2_start_time}}</td>
+					</tr>
+					<tr>
+						<td>{{object.service_3_name}}</td>
+						<td>{{object.service_3_day}}</td>
+						<td>{{object.service_3_start_time}}</td>
+					</tr>
+					<tr>
+						<td>{{object.service_4_name}}</td>
+						<td>{{object.service_4_day}}</td>
+						<td>{{object.service_4_start_time}}</td>
+					</tr>
+				</table>
+			</div>
+			<br>
+<!--			section 2-->
+			<h2 class="section-title">Church directions</h2>
+			<div class="card border-0" >
+				<div class="card-img-top border-0" data-height="200">
+					<iframe src="{{object.youtube_link_with_directions}}"
+							frameborder="0"
+					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+					allowfullscreen
+					width="100%" height="300"
+						type="video/quicktime"
+					></iframe>
+				</div>
+				<div class="card-text">
+					<p>{{object.church_location|safe}}</p>
+					<p><i class="fa fa-location-arrow"></i> </p>
+				</div>
+			</div>
+			<br>
+			<div class="text-center">
+				<a href="{% url 'events_list' %}" class="button">See all events</a>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="card border-0">
+				<h2 class="section-title card-title">Vision</h2>
+				<div class="card-text"><p>{{object.vision|safe}}</p></div>
+				<h2 class="section-title">Mission</h2>
+				<div class="card-text"><p>{{object.mission|safe}}</p></div>
+			</div>
+			<br>
+			<h2 class="section-title">Upcoming events</h2>
+			<div class="table-responsive">
+				<table class="table table-bordered align-middle" border="2">
+					<thead >
+					<tr >
+						<th>Event</th>
+						<th>Event date</th>
+						<th>Start time</th>
+						<th>Location</th>
+					</tr>
+					</thead>
+					<tbody class="table-group-divider">
+					<tr class="" >
+						<td>{{object.event_1_name}}</td>
+						<td>{{object.event_1_date}}</td>
+						<td>{{object.event_1_start_time}}</td>
+						<td>{{object.event_location}}</td>
+					</tr>
+					<tr class="" >
+						<td>{{object.event_2_name}}</td>
+						<td>{{object.event_2_date}}</td>
+						<td>{{object.event_2_start_time}}</td>
+						<td>{{object.event_1_location}}</td>
+					</tr>
+					<tr class="" >
+						<td>{{object.event_3_name}}</td>
+						<td>{{object.event_3_date}}</td>
+						<td>{{object.event_3_start_time}}</td>
+						<td>{{object.event_1_location}}</td>
+					</tr>
+					<tr class="" >
+						<td>{{object.event_4_name}}</td>
+						<td>{{object.event_4_date}}</td>
+						<td>{{object.event_4_start_time}}</td>
+						<td>{{object.event_1_location}}</td>
+					</tr>
+					</tbody>
+				</table>
+				<br>
+				<div class="text-center">
+					<a href="{% url 'events_list' %}" class="button">See all events</a>
+				</div>
+			</div>
+			<br>
+			<h2 class="section-title">Latest seremons</h2>
+			
+			<ul class="sermon-list list-unstyled border-0">
+				<li class="menu-item">
+					<iframe src="{{object.latest_sermon_youtube_link}}"
+							frameborder="0"
+							allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+							allowfullscreen
+							width="100%" height="300"
+							type="video/quicktime"
+					></iframe>
+					<div class="sermon-detail">
+						<h3 class="sermon-title"><a href="{{object.latest_sermon_youtube_link}}">Sermon link</a></h3>
+						<div class="sermon-meta">
+							<div class="pastor"><i class="fa fa-user"><span> </span> </i>    {{object.preacher}}</div>
+							<div class="date"><i class="fa fa-calendar"><span> </span> </i>   {{object.preached_on}}</div>
+						</div>
+					</div>
+				</li>
+			</ul>
+			<div class="text-center">
+				<a href="{% url 'sermon_list' %}" class="button">See all sermons</a>
+			</div>
+		</div>
+	</div>
+</div>
+

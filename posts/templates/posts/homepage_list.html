@@ -1,0 +1,230 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap5 %}
+{% block title %}CCOA | Home{% endblock %}
+{% block add_content_link %}
+	<h4 class="text-right"><a href="{% url 'new_page' %}" class="btn btn-outline-success btn-rounded"><i class="typcn typcn-plus text-outline-success"></i>Add new page</a></h4>
+{% endblock %}
+
+{% block bootstrap5_before_content %}
+<br>
+<!-- {% if user.is_authenticated %} -->
+	<div class="card-body">
+		<div class="table-responsive">
+			<table class="table table-striped table-hover">
+				<thead>
+				<tr>
+					<th>
+					slide photos
+					</th>
+					<th>
+					latest sermon date
+					</th>
+					<th>
+					Mission
+					</th>
+					<th>
+					Vision
+					</th>
+				</tr>
+				</thead>
+				<tbody>
+					{% for object in object_list %}
+						<tr>
+							<td class="py-1">
+							<img src="{{object.slide_photo_2.url}}" alt="image">
+							</td>
+							<td>
+							{{object.latest_sermon_date}}
+							</td>
+							<td>
+								{{object.mission}}
+							</td>
+							<td>
+								{{object.vision}}
+							</td>
+							
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+<!-- {% else %} -->
+{% for object in object_list %}
+<div class="hero">
+	<div class="slides">
+		<li data-bg-image="{{object.slide_photo_1.url}}" class="flex-active-slide"
+			 style="background-image: url(&quot;{{object.slide_photo_1.url}}&quot;); width: 100%; float: left; margin-right: -100%; position: relative; opacity: 1; display: block; z-index: 2;" >
+			<div class="container">
+				<div class="slide-content">
+					<small class="slide-subtitle">Christ covenant Church</small>
+					<a href="{% url 'events_list' %}" class="button">See all events</a>
+				</div>
+			</div>
+		</li>
+		<li data-bg-image="{{object.slide_photo_2.url}}" class="flex-active-slide"
+			style="background-image: url(&quot;{{object.slide_photo_2.url}}&quot;); width: 100%; float: left; margin-right: -100%; position: relative; opacity: 1; display: block; z-index: 2;">
+			<div class="container">
+				<div class="slide-content">
+					<small class="slide-subtitle">Christ covenant Church</small>
+					<a href="{% url 'photo_gallery_list' %}" class="button">Gallery</a>
+				</div>
+			</div>
+		</li>
+		<li data-bg-image="{{object.slide_photo_3.url}}" class="flex-active-slide"
+			style="background-image: url(&quot;{{object.slide_photo_3.url}}&quot;); width: 100%; float: left; margin-right: -100%; position: relative; opacity: 1; display: block; z-index: 2;">
+			<div class="container">
+				<div class="slide-content">
+					<small class="slide-subtitle">Christ covenant Church</small>
+					<a href="{% url 'minister_list' %}" class="button">See our Ministers</a>
+				</div>
+			</div>
+		</li>
+	</div>
+</div>
+{% block main %}
+<div class="fullwidth-block"></div> <!-- section -->
+<div class="fullwidth-block">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6">
+<!--				section 1-->
+				<h2 class="section-title">Order of services</h2>
+				<div class="table-responsive">
+					<table class='table table-bordered align-middle border-1'>
+						<thead class="">
+						<th>Service</th>
+						<th>Day</th>
+						<th>Start time</th>
+						</thead>
+						<tr>
+							<td>{{object.service_1_name}}</td>
+							<td>{{object.service_1_day}}</td>
+							<td>{{object.service_1_start_time}}</td>
+						</tr>
+						<tr>
+							<td>{{object.service_2_name}}</td>
+							<td>{{object.service_2_day}}</td>
+							<td>{{object.service_2_start_time}}</td>
+						</tr>
+						<tr>
+							<td>{{object.service_3_name}}</td>
+							<td>{{object.service_3_day}}</td>
+							<td>{{object.service_3_start_time}}</td>
+						</tr>
+						<tr>
+							<td>{{object.service_4_name}}</td>
+							<td>{{object.service_4_day}}</td>
+							<td>{{object.service_4_start_time}}</td>
+						</tr>
+					</table>
+				</div>
+				<br>
+<!--				section 2-->
+				<h2 class="section-title">Church directions</h2>
+				<div class="card border-0">
+					<div class="card-img-top border-0" data-height="200">
+						<iframe src="{{object.youtube_link_with_directions}}"
+						frameborder="0"
+				allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+				allowfullscreen
+				width="100%" height="300"
+				 type="video/quicktime"
+				></iframe>
+					</div>
+					<div class="card-text">
+						<p>{{object.church_location|safe}}</p>
+					</div>
+				</div>
+				<br>
+				<div class="text-center">
+					<a href="{% url 'events_list' %}" class="button">See all events</a>
+				</div>
+			</div>
+			<br>
+			<div class="col-md-6">
+				<div class="card border-0">
+					<h2 class="section-title card-title">Vision</h2>
+					<div class="card-text"><p>{{object.vision|safe}}</p></div>
+					<h2 class="section-title">Mission</h2>
+					<div class="card-text"><p>{{object.mission|safe}}</p></div>
+				</div>
+				<br>
+				<h2 class="section-title">Upcoming events</h2>
+				<div class="table-responsive">
+					<table class="table table-bordered align-middle" border="2">
+						<thead >
+						<tr >
+							<th>Event</th>
+							<th>Event date</th>
+							<th>Start time</th>
+							<th>Location</th>
+						</tr>
+						</thead>
+						<tbody class="table-group-divider">
+						<tr class="" >
+							<td>{{object.event_1_name}}</td>
+							<td>{{object.event_1_date}}</td>
+							<td>{{object.event_1_start_time}}</td>
+							<td>{{object.event_1_location}}</td>
+						</tr>
+						<tr class="" >
+							<td>{{object.event_2_name}}</td>
+							<td>{{object.event_2_date}}</td>
+							<td>{{object.event_2_start_time}}</td>
+							<td>{{object.event_2_location}}</td>
+						</tr>
+						<tr class="" >
+							<td>{{object.event_3_name}}</td>
+							<td>{{object.event_3_date}}</td>
+							<td>{{object.event_3_start_time}}</td>
+							<td>{{object.event_3_location}}</td>
+						</tr>
+						<tr class="" >
+							<td>{{object.event_4_name}}</td>
+							<td>{{object.event_4_date}}</td>
+							<td>{{object.event_4_start_time}}</td>
+							<td>{{object.event_4_location}}</td>
+						</tr>
+						</tbody>
+					</table>
+					<div class="text-center">
+					<a href="{% url 'events_list' %}" class="button">See all events</a>
+				</div>
+				</div>
+				<br>
+				<h2 class="section-title">Latest seremons</h2>
+				
+				<ul class="sermon-list list-unstyled border-0">
+					<li class="menu-item">
+						<iframe src="{{object.latest_sermon_youtube_link}}"
+								frameborder="0"
+								allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+								allowfullscreen
+								width="100%" height="300"
+								type="video/quicktime"
+						></iframe>
+						<div class="sermon-detail">
+							<h3 class="sermon-title"><a href="{{object.latest_sermon_youtube_link}}">Sermon link</a></h3>
+							<div class="sermon-meta">
+								<div class="pastor"><i class="fa fa-user"><span> </span> </i>    {{object.preacher}}</div>
+								<div class="date"><i class="fa fa-calendar"><span> </span> </i>   {{object.preached_on}}</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+				<div class="text-center">
+					<a href="{% url 'sermon_list' %}" class="button">See all sermons</a>
+				</div>
+				</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+	{% endfor%}
+<!-- {% endif %} -->
+{% endblock %}
+
+
+    

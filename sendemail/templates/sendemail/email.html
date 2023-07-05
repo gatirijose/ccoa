@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+{% load static %}
+
+{% block title %}CCOA | Contact Us{% endblock %}
+    
+{% block bootstrap5_content %}
+<div class="page-head" data-bg-image="{% static 'images/page-head-1.jpg' %}">
+    <div class="container">
+        <h2 class="page-title" style="text-align: center;">Contact Us</h2>
+    </div>
+</div>
+<br>
+<br>
+
+<div class="row">
+    <div class="col-md-6">
+        Directions
+    </div>
+    <div class="col-md-6">
+        <form enctype="multipart/form-data" data-email="christcovenant2010@gmail.com" method="POST">
+            {% csrf_token %}
+            {% bootstrap_form form layout='vertical' %}
+            {% bootstrap_button "Send" button_type="submit" name='send' button_class="send btn-primary center" %}
+        
+        </form>
+    </div>
+</div>
+
+{% endblock %}

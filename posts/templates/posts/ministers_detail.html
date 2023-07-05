@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}CCOA | {{ministers.minister_authority}} {{ministers.minister_name}}{% endblock %}
+{% load bootstrap5 %}
+{% load static %}
+
+{% block bootstrap5_before_content %}
+<div class="page-head" data-bg-image="{% static 'images/page-head-1.jpg' %}">
+  <div class="container">
+      <h2 class="page-title"> {{ministers.minister_full}} </h2>
+  </div>
+</div>
+{% endblock %}
+
+{% block bootstrap5_content %}
+<br>
+<br>
+
+{% comment %} </div> {% endcomment %}
+<div class="main">
+    <div class="container">
+      <div class="card border-0 ">
+        <div class="text-center">
+          <img  src="{{ministers.minister_photo.url}}" width="40%" alt="photo">
+          <div class="card-body">
+            <h4 class="card-title">{{ministers.minister_full}}</h4>
+            <p class="card-text">{{ministers.word_of_encouragement|safe}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="text-center">
+      {% if user.is_authenticated %}
+            <a class="btn btn-outline-info btn-lg" href="{% url 'update_minister' pk=ministers.pk %}">Update</a>
+            <a class="text-right btn  btn-lg btn-outline-danger align-end m-4" href="{% url 'delete_minister' pk=ministers.pk %}">Delete</a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

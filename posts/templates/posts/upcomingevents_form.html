@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}CCOA | Add event{% endblock %}
+{% load bootstrap5 %}
+{% bootstrap_javascript  %}
+{% block bootstrap5_before_content %}
+<div class="page-head" data-bg-image="{% static 'images/page-head-1.jpg' %}">
+    <div class="container">
+        <h2 class="page-title">Add an upcoming event</h2>
+    </div>
+</div>
+{% endblock %}
+{% block bootstrap5_content %}
+<br>
+<br>
+<form method="POST" enctype="multipart/form-data">
+    <div class="container ">
+        {% csrf_token %}
+        {{ form.media }}
+        {% bootstrap_form form layout='vertical' %}
+        <br>
+        <div class=""></div>
+        {% bootstrap_button "Save" button_type="submit" name='save' button_class="save btn-primary center" %}
+        <input type="hidden" name="next">
+    </div>
+</form>
+{% endblock %}

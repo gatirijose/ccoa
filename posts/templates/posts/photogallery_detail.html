@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+{% load static %}
+{% block title %}CCOA | {{object.photo_info|truncatewords:3 }}{% endblock %}
+  
+{{ form.media }}
+{% block bootstrap5_before_content %}
+<div class="page-head" data-bg-image="{% static 'images/page-head-1.jpg' %}">
+  <div class="container">
+      <h2 class="page-title"> {{object.photo_info}} datails</h2>
+  </div>
+</div>
+{% endblock %}
+{% block bootstrap5_content %}
+<br>
+<br>
+
+{% if user.is_authenticated %}
+  
+  <div class="card">
+    <div class="row">
+      <div class="col-8">
+        <img src="{{object.photo.url}}" width="50%" alt="">
+        <div class="card-body">
+          <h4 class="card-title">{{object.photo_info|safe}}</h4>
+          <p class="card-text text-right"><small class="text-muted text-right">{{object.date_taken}}</small></p>
+        </div>
+      </div>
+      <div class="col-4 card-body">
+        <a href="{% url 'photo_update' object.pk %}" class="btn btn-rounded btn-outline-success">Edit</a>
+        <a href="{% url 'photo_delete' pk=object.pk %}" class="btn btn-rounded btn-outline-danger">Delete photo</a>
+      </div>
+    </div>
+  </div>
+  
+{% else %}
+<div class="col-md-3"></div>
+    <div class="col-md-6">
+    <div class="card text-center">
+      <img class="card-img-top img-thumbnail" height="576" src="{{object.photo.url}}" >
+      <div class="card-body">
+        <h4 class="card-title">{{object.photo_info|safe}}</h4>
+        <p class="card-text text-right"><small class="text-muted text-right">{{object.date_taken}}</small></p>
+      </div>
+    </div>
+    <div class="col-md-3"></div>
+  </div>
+    {% endif %}
+{% endblock  %}

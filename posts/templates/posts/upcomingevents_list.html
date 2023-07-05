@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+{% load static %}
+
+{% block title %}CCOA | Events{% endblock %}
+    
+
+
+{% block navbar %}
+<li class="menu-item" >
+    <a class="nav-link " href="{% url 'create_event' %}">
+        <button class='button'
+        >Add event</button>
+    </a>
+</li>
+
+{% endblock  %}
+{% block bootstrap5_before_content %}
+<div class="page-head" data-bg-image="{% static 'images/page-head-1.jpg' %}">
+    <div class="container">
+        <h2 class="page-title">Upcoming Events</h2>
+    </div>
+</div>
+{% endblock %}
+
+{% block add_content_link %}
+    <h4 class="text-right"><a href="{% url 'create_event' %}" class="btn btn-outline-success btn-rounded"><i class="typcn typcn-plus text-outline-success"></i>Add event</a></h4>
+{% endblock %}
+
+
+{% block bootstrap5_content %}
+<br>
+<br>
+{% if user.is_authenticated %}
+<div class="card">
+    <table class="table table-hover table-striped border-2">
+        <thead class="">
+            <th>Event banner</th>
+            <th>Event name</th>
+            <th>Event date</th>
+            <th>Options</th>
+        </thead>
+        <tbody class="table-striped">
+            {% for object in object_list %}
+            <tr>
+                <td class="py-1"><img class="img-rounded" src="{{object.event_banner.url}}" width="50px" alt=""></td>
+                <td>{{object.event_name}}</td>
+                <td>{{object.event_date}}</td>
+                <td>
+                    <a href="{% url 'event_detail' pk=object.pk %}" class="btn btn-outline-info btn-sm btn-rounded " type="button" id="">View</a>
+                    <a href="{% url 'delete_event' pk=object.pk %}" class="btn btn-outline-danger btn-sm btn-rounded" type="button" id="">Delete</a>
+               </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% else %}
+<div class="row border-0">
+    {% for object in object_list  %}
+    <div class="card border-0">
+        <div class="container">
+        <div class="row">
+            <div class="">
+                <img class=".family" src="{{object.event_banner.url}}"  alt="">
+            </div>
+            <div class="card-title">
+                <h5 class="card-title">{{object.event_name}}</h5>
+            </div>
+                <div class="card-body">
+                    <p class="card-text">{{object.event_info|safe}}</p>
+                    <p class="card-text "><small class="text-muted">{{object.event_date}}</small></p>
+                
+                    <br>
+                    <a href="{% url 'event_detail' pk=object.pk %}" class="btn btn-sm btn-rounded btn-outline-info" >
+                        View
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    {% endfor %}
+</div>
+{% endif %}
+{% endblock %}
